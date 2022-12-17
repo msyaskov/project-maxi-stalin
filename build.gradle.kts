@@ -25,6 +25,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
+    implementation("com.vk.api:sdk:1.0.14")
+
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
     compileOnly("org.projectlombok:lombok")
