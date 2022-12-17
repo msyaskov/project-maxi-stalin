@@ -5,7 +5,8 @@ plugins {
 }
 
 group = "it.maxi.project.stalin"
-version = "0.0.1-SNAPSHOT"
+version = "alpha"
+
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
@@ -19,11 +20,16 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    compileOnly("org.projectlombok:lombok")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+
+    compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 }
