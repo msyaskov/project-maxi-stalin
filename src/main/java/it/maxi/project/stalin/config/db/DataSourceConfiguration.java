@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "it.maxi.project.stalin.repository.user",
+        basePackages = "it.maxi.project.stalin.repository",
         entityManagerFactoryRef = "userEntityManager",
         transactionManagerRef = "userTransactionManager"
 )
@@ -32,7 +32,7 @@ public class DataSourceConfiguration {
     ) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(userDataSource);
-        em.setPackagesToScan("it.maxi.project.stalin.model.user");
+        em.setPackagesToScan("it.maxi.project.stalin.model");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
