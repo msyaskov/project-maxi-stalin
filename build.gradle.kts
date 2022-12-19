@@ -30,7 +30,7 @@ dependencies {
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
     // GitHub project-maxi-utilita
-    implementation("it.maxi.project.utilita:project-maxi-utilita") {
+    implementation("it.maxi.project:project-maxi-utilita") {
         version {
             branch = "master"
         }
