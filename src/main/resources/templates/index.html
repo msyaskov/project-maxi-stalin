@@ -1,20 +1,44 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
 <head>
-    <title>Stalin</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/css/util.css">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Moderation | Stalin</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-<div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-            <a href="/user/signin"></a><span class="txt1 p-b-11">Войти</span></a>
-        </div>
+<section class="hero-area">
+    <div class="hero-slides owl-carousel">
+        <!-- Single Hero Slide -->
+            <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(https://sun9-49.userapi.com/impg/HBmRWfirZ-VR7OHL6tGf9t7rR4gRiS4vCFIagQ/bW_t4K7cLCY.jpg?size=540x960&quality=95&sign=a89f455c016d55e81c1635763adae2ff&type=album);">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-end">
+                        <div class="col-12">
+                            <div class="hero-slides-content">
+                                <div class="line"></div>
+                                <h2>Vk</h2>
+                                <p th:text="${vkpost.text}">Vk</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-</div>
+</section>
+
 </body>
+
 </html>

@@ -1,9 +1,5 @@
 build
 .idea
 .gradle
-gradle
-gradlew
-gradlew.bat
 HELP.md
-src/main/resources/application.yml
 tasklist.md

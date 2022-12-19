@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: Stalin
+  datasource:
+    stalin:
+      url: jdbc:mariadb://192.168.0.101:3306/pm_stalin
+      username: maxi
+      password: 1869
+      driver: org.mariadb.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDBDialect
+    generate-ddl: true
+  output:
+    ansi:
+      enabled: always
+it.maxi.project.stalin:
+  resource:
+    vk: -217453646
+  telegram:
+    api.token: '5963704999:AAHP6:afO4mF3rtk68jIbm-y2qXyd45eNa4'
+    channel.id: -1001761141716
+  vk:
+    app:
+      id: 51502987
+      token: '407cab08407cab08407cab08cc436d74834407c407cab0823e455ad996c34ffa62dad99'
+      secret: 'AZYtVmvDTbS6nMhmTZkn'
+logging:
+  level:
+    root: warn
+    it.maxi.project:
+      stalin: debug
+  pattern:
+    console: '${logging.pattern.dateformat} ${logging.pattern.level} ${logging.pattern.pid} ${logging.pattern.thread} ${logging.pattern.logger} %clr(: %m%n){faint}'
+    pid: '%clr(${PID:%6p}){magenta}'
+    level: '%clr(%5level)'
+    thread: '%clr([%-10t]){faint}'
+    logger: '%clr(%-40logger{39}){cyan}'
+    dateformat: '%clr(%d{yyyy-MM-dd HH:mm:ss}){faint}'

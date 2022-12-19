@@ -1,7 +1,7 @@
 package it.maxi.project.stalin;
 
-import it.maxi.project.stalin.model.vk.VkPost;
-import it.maxi.project.stalin.repository.vk.VkPostRepository;
+import it.maxi.project.stalin.service.vk.VkService;
+import it.maxi.project.utilita.array.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,16 +14,13 @@ public class StalinApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StalinApplication.class, args);
+        System.out.println(Ints.of(1, 2, 3));
     }
 
     @Bean
-    public CommandLineRunner clr(VkPostRepository vkPostRepository) {
+    public CommandLineRunner clr(VkService vkService) {
         return (args) -> {
-            VkPost vkPost = new VkPost();
-            vkPost.setPostId(5);
-            vkPost.setGroupId(-217453646);
-            vkPost.setText("test text");
-            vkPostRepository.save(vkPost);
+//            vkService.start();
         };
     }
 

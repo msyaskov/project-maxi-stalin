@@ -4,7 +4,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
 }
 
-group = "it.maxi.project.stalin"
+group = "it.maxi.project"
 version = "alpha"
 
 java.sourceCompatibility = JavaVersion.VERSION_17
@@ -17,6 +17,7 @@ configurations {
 
 repositories {
     mavenCentral()
+//    maven(uri("https://jitpack.io"))
 }
 
 dependencies {
@@ -26,8 +27,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     implementation("com.vk.api:sdk:1.0.14")
-
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+
+    // GitHub project-maxi-utilita
+    implementation("it.maxi.project.utilita:project-maxi-utilita") {
+        version {
+            branch = "master"
+        }
+    }
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

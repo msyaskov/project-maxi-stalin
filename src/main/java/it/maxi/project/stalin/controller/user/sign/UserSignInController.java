@@ -8,7 +8,6 @@ public class UserSignInController {
 
     @GetMapping("/user/signin")
     public String signIn() {
-        System.out.println("GET SingIn");
         return "user/signin";
     }
 
