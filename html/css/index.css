@@ -1,14 +1,16 @@
+body {
+    margin: 0;
+}
+
 .wrapper {
-    position: absolute;
-    top: 0; /*отступ для header*/
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 5px;
     background-color: #141414;
 }
 
 .post-rows {
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     left: 50%;
@@ -19,7 +21,7 @@
 .post-row {
     padding: 15px;
     position: relative;
-    margin-top: 5px;
+    margin-bottom: 5px;
     background-color: #222222;
     border-radius: 15px;
 }
