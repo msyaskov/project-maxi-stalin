@@ -1,0 +1,152 @@
+.wrapper {
+    position: absolute;
+    top: 0; /*отступ для header*/
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #141414;
+}
+
+.post-rows {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+}
+
+.post-row {
+    padding: 15px;
+    position: relative;
+    margin-top: 5px;
+    background-color: #222222;
+    border-radius: 15px;
+}
+
+.post-header {
+    position: relative;
+    height: 40px;
+}
+
+.post-header-avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.post-header-avatar img {
+    width: 40px;
+    height: 40px;
+}
+
+.post-header-info {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    right: 24px;
+    bottom: 0;
+    margin-left: 10px;
+}
+
+.post-header-info a {
+    font-family: Inter, sans-serif;
+    text-decoration: none;
+}
+
+.post-header-info a:hover {
+    text-decoration: underline;
+}
+
+.post-header-info-group-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    color: #e1e3da;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.post-header-info-publish-date {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    color: #7F7F7F;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.post-header-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 25px;
+}
+
+.post-header-menu img {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 25px;
+    margin-top: -13px;
+}
+
+.post-content {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.post-content span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e1e3da;
+    font-family: Inter, sans-serif;
+}
+
+.post-footer {
+    position: relative;
+    height: 32px;
+}
+
+.post-footer-likes {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #333333;
+    border-radius: 15px;
+    width: 48px;
+    height: 32px;
+}
+
+.post-footer-comments {
+    position: absolute;
+    left: 58px;
+    top: 0;
+    background-color: #333333;
+    border-radius: 15px;
+    width: 48px;
+    height: 32px;
+}
+
+.post-footer-views {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #333333;
+    border-radius: 15px;
+    width: 48px;
+    height: 32px;
+}
