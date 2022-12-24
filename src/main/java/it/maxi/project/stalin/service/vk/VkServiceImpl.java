@@ -125,6 +125,11 @@ public class VkServiceImpl implements VkService {
     }
 
     @Override
+    public VkPost getVkPost(Integer id) {
+        return vkPostRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Set<VkPost> getAllVkPosts() {
         return new HashSet<>(vkPostRepository.findAll());
     }

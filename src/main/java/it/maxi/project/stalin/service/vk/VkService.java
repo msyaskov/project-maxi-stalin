@@ -16,6 +16,8 @@ public interface VkService extends Runnable {
 
     Set<VkGroup> getAllVkGroups();
 
+    VkPost getVkPost(Integer id);
+
     void start();
 
     void stop();
