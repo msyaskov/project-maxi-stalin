@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Stalin | Project Maxi</title>
+    <link rel="stylesheet" href="css/moder.css" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="post-rows">
+        <th:block th:each="post: ${posts}" th:insert="~{moder/post_row :: post-row}"></th:block>
+    </div>
+</div>
+<div id="tooltip" class="tooltip"><span></span></div>
+<script src="js/moder.js"></script>
+</body>
+</html>
