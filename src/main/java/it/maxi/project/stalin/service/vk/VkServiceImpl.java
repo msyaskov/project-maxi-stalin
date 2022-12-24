@@ -4,8 +4,13 @@ import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.ServiceActor;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
+import com.vk.api.sdk.objects.photos.Photo;
+import com.vk.api.sdk.objects.photos.PhotoSizes;
+import com.vk.api.sdk.objects.video.Video;
+import com.vk.api.sdk.objects.wall.WallpostAttachment;
 import com.vk.api.sdk.objects.wall.responses.GetResponse;
 import it.maxi.project.stalin.model.vk.VkGroup;
+import it.maxi.project.stalin.model.vk.VkPhoto;
 import it.maxi.project.stalin.model.vk.VkPost;
 import it.maxi.project.stalin.repository.vk.VkGroupRepository;
 import it.maxi.project.stalin.repository.vk.VkPostRepository;
@@ -13,8 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -44,8 +50,9 @@ public class VkServiceImpl implements VkService {
     @Override
     public Set<VkPost> requestNewPosts(int countFromEachVkGroup) {
         Set<VkPost> requestedPosts = new HashSet<>();
+        Set<VkGroup> vkGroups = this.getAllVkGroups();
 
-        this.getAllVkGroups().forEach(vkGroup -> {
+        vkGroups.forEach(vkGroup -> {
             GetResponse response;
             try {
                 response = vkApiClient.wall().get(serviceActor)
@@ -57,7 +64,37 @@ public class VkServiceImpl implements VkService {
             }
 
             if (response != null && response.getItems() != null) {
-                requestedPosts.addAll(response.getItems().stream().map(VkPost::from).collect(Collectors.toSet()));
+                response.getItems().forEach(wallPostFull -> {
+                    VkPost vkPost = new VkPost();
+                    vkPost.setPostId(wallPostFull.getId());
+                    vkPost.setGroup(vkGroup);
+                    vkPost.setText(wallPostFull.getText());
+                    vkPost.setVkPublicationDate(new Date(wallPostFull.getDate() * 1000L).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                    vkPost.setLikes(wallPostFull.getLikes() == null ? 0 : wallPostFull.getLikes().getCount());
+                    vkPost.setComments(wallPostFull.getComments() == null ? 0 : wallPostFull.getComments().getCount());
+                    vkPost.setViews(wallPostFull.getViews() == null ? 0 : wallPostFull.getViews().getCount());
+
+                    List<VkPhoto> vkPhotos = new ArrayList<>();
+                    List<WallpostAttachment> attachments = wallPostFull.getAttachments();
+                    if (attachments != null) {
+                        attachments.forEach(
+                                attachment ->  {
+                                    Photo photo = attachment.getPhoto();
+                                    if (photo != null) {
+                                        List<PhotoSizes> photoSizes = photo.getSizes();
+                                        if (photoSizes != null && photoSizes.size() > 0) {
+                                            VkPhoto vkPhoto = new VkPhoto();
+                                            vkPhoto.setUrl(photoSizes.get(photoSizes.size() - 1).getUrl().toString());
+                                            vkPhotos.add(vkPhoto);
+                                        }
+                                    }
+                                }
+                        );
+                    }
+                    vkPost.setPhotos(vkPhotos);
+
+                    requestedPosts.add(vkPost);
+                });
             }
         });
 
@@ -65,16 +102,26 @@ public class VkServiceImpl implements VkService {
     }
 
     public VkPost save(VkPost vkPost) {
-        VkGroup vkGroup = vkGroupRepository.findById(vkPost.getGroupId()).orElse(null);
-        if (vkGroup == null) {
-            // add new group
-        } else {
-            if (vkPost.getPublicationDate().compareTo(vkGroup.getLastPostDate()) > 0) {
-                vkGroup.setLastPostDate(vkPost.getPublicationDate());
-                vkGroupRepository.save(vkGroup);
+        if (vkPost.getVkPublicationDate().compareTo(vkPost.getGroup().getLastPostDate()) > 0) {
+            vkPost.getGroup().setLastPostDate(vkPost.getVkPublicationDate());
+            vkGroupRepository.save(vkPost.getGroup());
+
+        }
+        VkPost saved = null;
+        try {
+            saved = vkPostRepository.save(vkPost);
+        } catch (Exception e) {
+            Throwable cause = e.getCause();
+            while (cause.getCause() != null) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof SQLIntegrityConstraintViolationException sqlE && sqlE.getErrorCode() == 1062) {
+                // duplicate vkpost.post_id & vkpost.group_id
+            } else {
+                throw new RuntimeException(e);
             }
         }
-        return vkPostRepository.save(vkPost);
+        return saved;
     }
 
     @Override

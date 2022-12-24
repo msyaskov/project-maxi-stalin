@@ -3,9 +3,8 @@ package it.maxi.project.stalin.model.vk;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vkgroup")
@@ -16,12 +15,19 @@ public class VkGroup {
     private Integer id;
 
     @Getter@Setter
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String domain;
 
     @Getter@Setter
-    @ColumnDefault("2000-10-12")
     @Column(nullable = false)
-    private Date lastPostDate;
+    private String name;
+
+    @Getter@Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    private VkPhoto cover;
+
+    @Getter@Setter
+    @Column(nullable = false)
+    private LocalDateTime lastPostDate;
 
 }
